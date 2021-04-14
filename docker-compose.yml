@@ -13,7 +13,7 @@ services:
       - 80:80
       - 443:443
     volumes:
-      - ./wordpress:/var/www/html:delegated
+      - ./wordpress:/var/www/wp-andres:delegated
     depends_on:
       - php
       - mysql
@@ -24,13 +24,15 @@ services:
     image: mysql:5.7.29
     container_name: mysql
     restart: always
+    volumes:
+      - ./mysql:/var/lib/mysql
     ports:
       - 3306:3306
     environment:
-      MYSQL_DATABASE: wp
-      MYSQL_USER: wp
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: wp-andres
+      MYSQL_USER: andresR00t
+      MYSQL_PASSWORD: And@IT2020.
+      MYSQL_ROOT_PASSWORD: And@IT2020.
       SERVICE_TAGS: dev
       SERVICE_NAME: mysql
     networks:
@@ -42,7 +44,7 @@ services:
       dockerfile: php.dockerfile
     container_name: php
     volumes:
-      - ./wordpress:/var/www/html:delegated
+      - ./wordpress:/var/www/wp-andres:delegated
     networks:
       - wordpress
 
@@ -53,6 +55,6 @@ services:
     container_name: wp
     entrypoint: ['wp', '--allow-root']
     volumes:
-      - ./wordpress:/var/www/html:delegated
+      - ./wordpress:/var/www/wp-andres:delegated
     networks:
       - wordpress
